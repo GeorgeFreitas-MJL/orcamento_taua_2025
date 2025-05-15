@@ -3,13 +3,11 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 import io
-#import xlsxwriter
 import numpy as np
-
+import plotly.graph_objects as go
 
 
 st.set_page_config(layout="wide")
-
 
 st.markdown(
     '''
@@ -41,14 +39,12 @@ st.markdown(
 )
 
 
-
 # ============================
 #PRIMEIRA PARTE
 # ============================
 
 # ============================
 # CARREGAMENTO DAS PLANILHAS
-
 
 # Caminhos dos arquivos
 
@@ -119,16 +115,15 @@ for nome, caminho in files.items():
 # ============================
 # EXIBIÇÃO COMPLETA DAS PLANILHAS
 
-
 if planilhas_dfs:
     # Título principal em verde e centralizado
     st.markdown("""
     <h1 style='color: ; margin-bottom: 80px; text-align: center;'>
-        DEPARTAMENTO DE ADMINISTRAÇÃO E PLANEJAMENTO (DAP) - <em>CAMPUS</em> TAUÁ-CE <br> ORÇAMENTO 2025
-    </h1>
+        DEPARTAMENTO DE ADMINISTRAÇÃO E PLANEJAMENTO (DAP) <br>
+        <em>CAMPUS</em> TAUÁ-CE - ORÇAMENTO 2025
+        </h1>
     """, unsafe_allow_html=True)
-
-
+ 
     # Subtítulo em verde, um pouco menor, centralizado
 st.markdown("""
    <h6 style='color: ; margin-bottom: 0px; text-align: right;'>🖱️ Passe o mouse sobre as bordas para visualizar as opções e acessar todas as planilhas e gráficos listados abaixo ⤵️</h6>
@@ -144,7 +139,6 @@ for nome, df in planilhas_dfs.items():
 # ============================
 # BOTÃO PARA EXPORTAR EM EXCEL COM ESTILO
 
- 
 # Estilo para o botão
 st.markdown("""
     <style>
@@ -182,10 +176,8 @@ st.download_button(
 st.divider()
 st.title('➡️ AÇÕES - PAGAMENTOS')
 
-
 # ============================
 # CARREGAMENTO DAS PLANILHAS
-
 
 # Caminhos dos arquivos
 file_20rl = 'planilha20rl.xlsx'
@@ -198,7 +190,6 @@ df_2994 = pd.read_excel(file_2994)
 # ============================
 # PREPARAÇÃO DOS DADOS
 
-
 # Ajuste nos DataFrames para o gráfico de pizza
 df_20rl['Label'] = df_20rl.apply(lambda x: f"{x['AÇÃO 20RL - CUSTEIO']} - R$ {x['PAGAMENTO REALIZADO']:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.'), axis=1)
 df_20rl['Percentual'] = df_20rl['PAGAMENTO REALIZADO'] / df_20rl['PAGAMENTO REALIZADO'].sum() * 100
@@ -209,7 +200,6 @@ df_2994['Percentual'] = df_2994['PAGAMENTO REALIZADO'] / df_2994['PAGAMENTO REAL
 # ============================
 # INTERFACE STREAMLIT
 
-
 # Exibir título principal
 #st.title("Gráficos de Distribuição Percentual")
 
@@ -219,19 +209,18 @@ escolha = st.selectbox("🖱️ Selecione a AÇÃO para visualizar o gráfico �
 
 if escolha == 'AÇÃO 20RL - CUSTEIO':
     st.subheader("Distribuição Percentual:")
-    fig = px.pie(df_20rl, values='Percentual', names='Label', hole=0.3)
+    fig = px.pie(df_20rl, values='Percentual', names='Label', hole=0.5)
     st.plotly_chart(fig, use_container_width=True)
 
 elif escolha == 'AÇÃO 2994 - ASSISTÊNCIA':
     st.subheader("Distribuição Percentual:")
-    fig = px.pie(df_2994, values='Percentual', names='Label', hole=0.3)
+    fig = px.pie(df_2994, values='Percentual', names='Label', hole=0.5)
     st.plotly_chart(fig, use_container_width=True)
 
 
 # ============================
 #TERCEIRA PARTE!
 # ============================
-
 
 # Caminho do arquivo atualizado
 file_path = 'planilhatabela.xlsx'
@@ -274,7 +263,7 @@ st.markdown('''<style>
     font-weight: bold !important;
     border-radius: 8px;
     border: none;
-    height: 70px;
+    height: 40px;
 }
 .stButton button:hover {
     color: red !important;
@@ -303,7 +292,7 @@ with tab1:
     st.markdown('🖱️ Clique nas opções abaixo ⤵️')
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        btn1 = st.button('COMPARAR FLUXO DE RECURSO')
+        btn1 = st.button('FLUXO DE RECURSO')
     with col2:
         btn2 = st.button('ORÇAMENTO 2025')
     with col3:
@@ -353,7 +342,6 @@ with tab2:
 # ============================
 #QUARTA PARTE!
 # ============================
-
 
 st.divider()
 st.title("➡️ AÇÕES - NEGATIVADAS")
@@ -423,12 +411,9 @@ st.plotly_chart(fig, use_container_width=True)
 with st.expander("🔎 Visualizar Dados"):
     st.dataframe(final_data)
 
-
-
 # ============================
 #FINAL
 # ============================
-
 
 # LINK CLICÁVEL ESTILIZADO
 st.markdown("---")
@@ -452,3 +437,5 @@ st.markdown("""
     """, unsafe_allow_html=True)  
     
     
+
+
