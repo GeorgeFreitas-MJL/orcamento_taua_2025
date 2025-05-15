@@ -6,10 +6,7 @@ import io
 import numpy as np
 import plotly.graph_objects as go
 
-
-
 st.set_page_config(layout="wide")
-
 
 st.markdown('''
     <style>
@@ -74,9 +71,7 @@ def responsive_table(df, height=500):
 #PRIMEIRA PARTE
 # ============================
 
-# ============================
 # CARREGAMENTO DAS PLANILHAS
-
 
 # Caminhos dos arquivos
 
@@ -148,7 +143,6 @@ for nome, caminho in files.items():
 # ============================
 # EXIBIÇÃO COMPLETA DAS PLANILHAS
 
-
 if planilhas_dfs:
     # Título principal em verde e centralizado
     st.markdown("""
@@ -173,7 +167,6 @@ for nome, df in planilhas_dfs.items():
 
 # ============================
 # BOTÃO PARA EXPORTAR EM EXCEL COM ESTILO
-
  
 # Estilo para o botão
 st.markdown("""
@@ -212,10 +205,8 @@ st.download_button(
 st.divider()
 st.title('➡️ AÇÕES - PAGAMENTOS')
 
-
 # ============================
 # CARREGAMENTO DAS PLANILHAS
-
 
 # Caminhos dos arquivos
 file_20rl = 'planilha20rl.xlsx'
@@ -256,7 +247,7 @@ opcoes = ['AÇÃO 20RL - CUSTEIO', 'AÇÃO 2994 - ASSISTÊNCIA']
 escolha = st.selectbox("🖱️ Selecione a AÇÃO para visualizar o gráfico ⤵️", opcoes)
 
 if escolha == 'AÇÃO 20RL - CUSTEIO':
-    st.subheader("Distribuição Percentual:")
+    st.subheader("Distribuição Percentual dos Pagamentos das AÇÕES:")
     fig = px.pie(df_20rl, values='Percentual', names='Label', hole=0.4)
     fig.update_traces(rotation=195)  # Rotaciona o gráfico em 90 graus
     st.plotly_chart(fig, use_container_width=True)
@@ -271,7 +262,6 @@ elif escolha == 'AÇÃO 2994 - ASSISTÊNCIA':
 # ============================
 #TERCEIRA PARTE!
 # ============================
-
 
 # Caminho do arquivo atualizado
 file_path = 'planilhatabela.xlsx'
@@ -394,7 +384,6 @@ with tab2:
 #QUARTA PARTE!
 # ============================
 
-
 st.divider()
 st.title("➡️ AÇÕES - NEGATIVADAS")
 
@@ -445,7 +434,7 @@ fig = px.bar(
         'Recurso Recebido': 'blue',
         'Total Negativado': 'red'
     },
-    title="RECURSOS POSITIVOS x RECURSOS NEGATIVOS"
+    title="RECURSOS RECEBIDOS x RECURSOS NEGATIVOS"
 )
 
 fig.update_traces(textposition='inside')
@@ -463,12 +452,9 @@ st.plotly_chart(fig, use_container_width=True)
 with st.expander("🔎 Visualizar Dados"):
     st.dataframe(final_data)
 
-
-
 # ============================
 #FINAL
 # ============================
-
 
 # LINK CLICÁVEL ESTILIZADO
 st.markdown("---")
