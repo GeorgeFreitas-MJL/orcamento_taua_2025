@@ -460,6 +460,14 @@ with st.expander("🔎 Visualizar Dados"):
 st.markdown("---")
 st.markdown("""
     <div style='text-align: left; margin-top: 20px;'>
+        <a href='https://tauaceara.com/' target='_blank' 
+        style='font-size: 18px; color: #6495ED; text-decoration: none; font-weight: bold;'>
+            🔗 Clique aqui para acessar: DAP-TAUÁ WEBSITE.
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+st.markdown("""
+    <div style='text-align: left; margin-top: 20px;'>
         <a href='https://orcamento.ifce.edu.br/' target='_blank' 
         style='font-size: 18px; color: #6495ED; text-decoration: none; font-weight: bold;'>
             🔗 Clique aqui para acessar: ORÇAMENTO DA NOSSA REDE IFCE.
