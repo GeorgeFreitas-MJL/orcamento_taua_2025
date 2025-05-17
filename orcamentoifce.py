@@ -143,7 +143,7 @@ def responsive_table(df, height=500):
 
 files = {
     'Ação 20RL - Custeio': 'planilha20rl.xlsx', 
-    'Ação 2994 - Assistẽncia': 'planilha2994.xlsx',
+    'Ação 2994 - Assistência': 'planilha2994.xlsx',
     'Ação 4572 - Capacitação': 'planilhacapacita.xlsx',
     'Ação 20RG - Capital': 'planilhacapital.xlsx',
     'Demanda Necessária Para 2025': 'planilhanescessaria.xlsx',
