@@ -6,7 +6,63 @@ import io
 import numpy as np
 import plotly.graph_objects as go
 
+import streamlit as st
+
 st.set_page_config(layout="wide")
+
+# =============================
+# Cabeçalho Responsivo
+# =============================
+
+st.markdown('''
+    <style>
+        /* Estilo do Cabeçalho */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #003580;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .header-title {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .header-subtitle {
+            font-size: 18px;
+            color: #dcdcdc;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-title {
+                font-size: 22px;
+            }
+            
+            .header-subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <div class="header">
+        <div>
+            <div class="header-title">DEPARTAMENTO DE ADMINISTRAÇÃO E PLANEJAMENTO (DAP)</div>
+            <div class="header-subtitle">CAMPUS TAUÁ-CE - ORÇAMENTO 2025</div>
+        </div>
+    </div>
+''', unsafe_allow_html=True)
+
+# ============================
 
 st.markdown('''
     <style>
@@ -53,6 +109,16 @@ st.markdown('''
     unsafe_allow_html=True
 )
 
+def titulo_azul(texto):
+    st.markdown(f'''
+    <h1 style="color: #003580; text-align: left;">
+        {texto}
+    </h1>
+    ''', unsafe_allow_html=True)
+
+
+
+
 # ============================
 # ADAPTAÇÃO RESPONSIVA DO LAYOUT
 # ============================
@@ -76,12 +142,12 @@ def responsive_table(df, height=500):
 # Caminhos dos arquivos
 
 files = {
-    'AÇÃO 20RL - CUSTEIO': 'planilha20rl.xlsx', 
-    'AÇÃO 2994 - ASSISTÊNCIA': 'planilha2994.xlsx',
-    'AÇÃO 4572 - CAPACITACÃO': 'planilhacapacita.xlsx',
-    'AÇÃO 20RG - CAPITAL': 'planilhacapital.xlsx',
-    'DEMANDA NECESSÁRIA PARA 2025': 'planilhanescessaria.xlsx',
-    'AÇÕES EM PROCESSAMENTO': 'planilhanegativa.xlsx'   
+    'Ação 20RL - Custeio': 'planilha20rl.xlsx', 
+    'Ação 2994 - Assistẽncia': 'planilha2994.xlsx',
+    'Ação 4572 - Capacitação': 'planilhacapacita.xlsx',
+    'Ação 20RG - Capital': 'planilhacapital.xlsx',
+    'Demanda Necessária Para 2025': 'planilhanescessaria.xlsx',
+    'Ações em Processamento': 'planilhanegativa.xlsx'   
 }
 
 # Função para carregar a planilha
@@ -143,15 +209,6 @@ for nome, caminho in files.items():
 # ============================
 # EXIBIÇÃO COMPLETA DAS PLANILHAS
 
-if planilhas_dfs:
-    # Título principal em verde e centralizado
-    st.markdown("""
-    <h1 style='color: ; margin-bottom: 80px; text-align: center;'>
-        DEPARTAMENTO DE ADMINISTRAÇÃO E PLANEJAMENTO (DAP) <br>
-        <em>CAMPUS</em> TAUÁ-CE - ORÇAMENTO 2025
-        </h1>
-    """, unsafe_allow_html=True)
- 
 
     # Subtítulo em verde, um pouco menor, centralizado
 st.markdown("""
@@ -159,7 +216,7 @@ st.markdown("""
    """, unsafe_allow_html=True)
 
 st.divider()
-st.title("➡️ AÇÕES - RECURSOS")
+titulo_azul(" AÇÕES - RECURSOS")
 
 for nome, df in planilhas_dfs.items():
         st.header(f" {nome}")
@@ -203,7 +260,7 @@ st.download_button(
 # ============================
 # Interface Streamlit
 st.divider()
-st.title('➡️ AÇÕES - PAGAMENTOS')
+titulo_azul('AÇÕES - PAGAMENTOS')
 
 # ============================
 # CARREGAMENTO DAS PLANILHAS
@@ -292,7 +349,7 @@ df_numerico['NECESSÁRIO PARA 2025 (R$)'] = df_numerico['NECESSÁRIO PARA 2025']
 
 # Configuração das abas
 st.divider()
-st.title("➡️ AÇÕES - FLUXO DE RECURSOS")
+titulo_azul("AÇÕES - FLUXO DE RECURSOS")
 
 tab1, tab2 = st.tabs(['🖱️ Gráfico Interativo', '🖱️ Planilha Completa'])
 
@@ -385,7 +442,7 @@ with tab2:
 # ============================
 
 st.divider()
-st.title("➡️ AÇÕES - NEGATIVADAS")
+titulo_azul("AÇÕES - NEGATIVADAS")
 
 # Título da aplicação
 # st.markdown("💰 Game Life Financeiro - Recebimentos vs Total Negativado")
@@ -461,7 +518,7 @@ st.markdown("---")
 st.markdown("""
     <div style='text-align: left; margin-top: 20px;'>
         <a href='https://tauaceara.com/' target='_blank' 
-        style='font-size: 18px; color: #6495ED; text-decoration: none; font-weight: bold;'>
+        style='font-size: 18px; color: #003580; text-decoration: none; font-weight: bold;'>
             🔗 Clique aqui para acessar: DAP-TAUÁ WEBSITE.
         </a>
     </div>
@@ -469,7 +526,7 @@ st.markdown("""
 st.markdown("""
     <div style='text-align: left; margin-top: 20px;'>
         <a href='https://orcamento.ifce.edu.br/' target='_blank' 
-        style='font-size: 18px; color: #6495ED; text-decoration: none; font-weight: bold;'>
+        style='font-size: 18px; color: #003580; text-decoration: none; font-weight: bold;'>
             🔗 Clique aqui para acessar: ORÇAMENTO DA NOSSA REDE IFCE.
         </a>
     </div>
