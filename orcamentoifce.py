@@ -409,7 +409,7 @@ div[data-baseweb="tab"][aria-selected="true"] {
 # Aba Gráfico Interativo
 with tab1:
     st.markdown('🖱️ Clique nas opções abaixo ⤵️')
-    col1, col2, col3, col4, col5 = st.columns(5)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         btn1 = st.button('FLUXO DE RECURSO')
     with col2:
@@ -417,8 +417,6 @@ with tab1:
     with col3:
         btn3 = st.button('RECURSO RECEBIDO')
     with col4:
-        btn4 = st.button('FALTANDO RECEBER')
-    with col5:
         btn5 = st.button('NECESSÁRIO PARA 2025')
 
     if btn1:
@@ -435,22 +433,78 @@ with tab1:
         )
         fig.update_traces(textposition='outside')
         st.plotly_chart(fig)
+    
     elif btn2:
-        fig = px.bar(df_numerico, x=df.columns[0], y='ORÇAMENTO', text='ORÇAMENTO (R$)', title='Gráfico de Barras - ORÇAMENTO')
+            # Criar DataFrame comparativo entre ORÇAMENTO e RECEBIDO
+        df_orcamento_vs_recebido = pd.melt(
+            df_numerico,
+            id_vars=[df.columns[0]],
+            value_vars=['ORÇAMENTO', 'RECEBIDO'],
+            var_name='Tipo',
+            value_name='Valor'
+        )
+        df_orcamento_vs_recebido['Valor Formatado'] = df_orcamento_vs_recebido['Valor'].apply(formatar_moeda)
+
+        # Criar gráfico comparativo
+        fig = px.bar(
+            df_orcamento_vs_recebido,
+            x=df.columns[0],
+            y='Valor',
+            color='Tipo',
+            barmode='group',
+            text='Valor Formatado',
+            title='Comparativo de Barras - ORÇAMENTO vs RECEBIDO'
+        )
         fig.update_traces(textposition='outside')
         st.plotly_chart(fig)
+
     elif btn3:
-        fig = px.bar(df_numerico, x=df.columns[0], y='RECEBIDO', text='RECEBIDO (R$)', title='Gráfico de Barras - RECEBIDO')
+        # Criar DataFrame comparativo entre RECEBIDO e FALTANDO RECEBER
+        df_recebido_vs_faltando = pd.melt(
+        df_numerico,
+        id_vars=[df.columns[0]],
+        value_vars=['RECEBIDO', 'FALTANDO RECEBER'],
+        var_name='Tipo',
+        value_name='Valor'
+    )
+        df_recebido_vs_faltando['Valor Formatado'] = df_recebido_vs_faltando['Valor'].apply(formatar_moeda)
+
+    # Criar gráfico comparativo
+        fig = px.bar(
+        df_recebido_vs_faltando,
+        x=df.columns[0],
+        y='Valor',
+        color='Tipo',
+        barmode='group',
+        text='Valor Formatado',
+        title='Comparativo de Barras - RECEBIDO vs FALTANDO RECEBER'
+    )
         fig.update_traces(textposition='outside')
         st.plotly_chart(fig)
-    elif btn4:
-        fig = px.bar(df_numerico, x=df.columns[0], y='FALTANDO RECEBER', text='FALTANDO RECEBER (R$)', title='Gráfico de Barras - FALTANDO RECEBER')
-        fig.update_traces(textposition='outside')
-        st.plotly_chart(fig)
+
     elif btn5:
-        fig = px.bar(df_numerico, x=df.columns[0], y='NECESSÁRIO PARA 2025', text='NECESSÁRIO PARA 2025 (R$)', title='Gráfico de Barras - NECESSÁRIO PARA 2025')
+        # Comparativo entre NECESSÁRIO PARA 2025 e ORÇAMENTO
+        df_necessario_vs_orcamento = pd.melt(
+        df_numerico,
+        id_vars=[df.columns[0]],
+        value_vars=['NECESSÁRIO PARA 2025', 'ORÇAMENTO'],
+        var_name='Tipo',
+        value_name='Valor'
+    )
+        df_necessario_vs_orcamento['Valor Formatado'] = df_necessario_vs_orcamento['Valor'].apply(formatar_moeda)
+
+        fig = px.bar(
+        df_necessario_vs_orcamento,
+        x=df.columns[0],
+        y='Valor',
+        color='Tipo',
+        barmode='group',
+        text='Valor Formatado',
+        title='Comparativo de Barras - NECESSÁRIO PARA 2025 vs ORÇAMENTO'
+    )
         fig.update_traces(textposition='outside')
         st.plotly_chart(fig)
+
 
 # Aba Planilha Completa
 with tab2:
